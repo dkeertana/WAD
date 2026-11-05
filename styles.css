@@ -194,3 +194,28 @@ footer {
 #about .card {
     border-top: 4px solid rgb(230, 174, 49);
 }
+
+.booking-page {
+    max-width: 600px;
+    margin: 30px auto;
+}
+
+.booking-page h1 {
+    color: rgb(9, 9, 131);
+}
+
+.booking-page input[type="text"],
+.booking-page input[type="email"],
+.booking-page input[type="tel"],
+.booking-page input[type="number"],
+.booking-page select {
+    width: 95%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+
+.booking-page input[type="checkbox"] {
+    margin-right: 5px;
+}
