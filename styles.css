@@ -1,0 +1,196 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    background-color: #ebecef;
+    color: #222;
+}
+
+header {
+    background-color: rgb(9, 9, 131);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+}
+
+header p {
+    margin: 0;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+nav {
+    display: flex;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+nav a:hover {
+    color: yellow;
+}
+
+.hero {
+    background-color: rgb(28, 91, 153);
+    color: white;
+    text-align: center;
+    padding: 45px 20px;
+}
+
+.hero h1 {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 18px;
+}
+
+.card {
+    margin: 20px;
+    border: 1px solid grey;
+    border-radius: 6px;
+    padding: 15px;
+    background-color: rgb(250, 248, 248);
+}
+
+h2 {
+    font-size: 24px;
+    color: rgb(9, 9, 131);
+}
+
+.info {
+    display: flex;
+    justify-content: space-around;
+}
+
+.info .card {
+    width: 45%;
+}
+
+button, .button, .small-button {
+    background-color: rgb(55, 109, 218);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+button:hover, .button:hover, .small-button:hover {
+    background-color: rgb(9, 9, 131);
+}
+
+.filter-form {
+    margin-bottom: 15px;
+}
+
+select, input {
+    padding: 8px;
+    margin: 5px;
+}
+
+.booking-layout {
+    display: flex;
+    justify-content: space-around;
+}
+
+.booking-form, .summary {
+    width: 45%;
+}
+
+.booking-form label {
+    display: inline-block;
+    width: 150px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: rgb(9, 9, 131);
+    color: white;
+}
+
+td {
+    background-color: #f7f7f7;
+}
+
+.empty {
+    color: grey;
+}
+
+.guidelines {
+    display: flex;
+    justify-content: space-around;
+}
+
+.guidelines article {
+    width: 30%;
+}
+
+footer {
+    text-align: center;
+    background-color: rgb(9, 9, 131);
+    color: white;
+    padding: 15px;
+}
+.info-grid {
+    display: flex;
+    justify-content: space-around;
+}
+
+.info-grid .card {
+    width: 45%;
+}
+
+.booking-grid {
+    display: flex;
+    justify-content: space-around;
+}
+
+.booking-form, .summary {
+    width: 45%;
+}
+
+.booking-form label {
+    display: inline-block;
+    width: 150px;
+}
+
+.guidelines .info-grid .card {
+    width: 30%;
+}
+.hero {
+    background-color: rgb(41, 148, 59);
+    color: white;
+    text-align: center;
+    padding: 45px 20px;
+}
+
+#about {
+    background-color: #e2eee5;
+    border-left: 6px solid rgb(55, 109, 218);
+}
+
+#about h2 {
+    color: rgb(20, 91, 65);
+}
+
+#about .card {
+    border-top: 4px solid rgb(230, 174, 49);
+}
