@@ -29,3 +29,47 @@ if (form) {
         showToast("Your form details are valid.");
     });
 }
+
+var matchSelect = document.getElementById("match");
+var standSelect = document.getElementById("stand");
+var ticketQuantity = document.getElementById("tickets");
+var summaryMatch = document.getElementById("summary-match");
+
+if (matchSelect && standSelect && ticketQuantity && summaryMatch) {
+    var standNames = ["General", "Premium", "VIP"];
+
+    var ticketPrices = [
+        [1500, 3500, 8000],
+        [1800, 4000, 9000],
+        [1200, 3000, 7000],
+        [2000, 4500, 10000]
+    ];
+
+    function updateSummary() {
+        var matchNumber = Number(matchSelect.value);
+        var standNumber = Number(standSelect.value);
+        var quantity = Number(ticketQuantity.value);
+        var ticketPrice = ticketPrices[matchNumber][standNumber];
+        var totalPrice = ticketPrice * quantity;
+
+        summaryMatch.textContent =
+            matchSelect.options[matchSelect.selectedIndex].text;
+
+        document.getElementById("summary-stand").textContent =
+            standNames[standNumber];
+
+        document.getElementById("summary-price").textContent =
+            ticketPrice.toLocaleString("en-IN");
+
+        document.getElementById("summary-quantity").textContent = quantity;
+
+        document.getElementById("summary-total").textContent =
+            totalPrice.toLocaleString("en-IN");
+
+        showToast("Booking summary updated.");
+    }
+
+    matchSelect.addEventListener("change", updateSummary);
+    standSelect.addEventListener("change", updateSummary);
+    ticketQuantity.addEventListener("change", updateSummary);
+}
