@@ -1,75 +1,123 @@
 function showToast(message) {
-    var toast = document.getElementById("toast");
-
+    var toast = document.getElementById('toast');
     toast.textContent = message;
-    toast.classList.add("show");
+    toast.classList.add('show');
 
     setTimeout(function () {
-        toast.classList.remove("show");
+        toast.classList.remove('show');
     }, 3000);
 }
 
-var bookButtons = document.querySelectorAll(".match-book");
+// Show and hide the menu on small screens.
+var menuButton = document.querySelector('.menu-toggle');
+var navigation = document.getElementById('main-nav');
 
-bookButtons.forEach(function (button) {
-    button.addEventListener("click", function (event) {
-        event.preventDefault();
+menuButton.addEventListener('click', function () {
+    var menuIsOpen = menuButton.getAttribute('aria-expanded') === 'true';
+    menuButton.setAttribute('aria-expanded', !menuIsOpen);
+    menuButton.setAttribute('aria-label', menuIsOpen ? 'Open menu' : 'Close menu');
+    navigation.classList.toggle('open');
+});
 
-        var bookingForm = document.getElementById("booking");
-        bookingForm.scrollIntoView({ behavior: "smooth" });
-        showToast("Scroll down to complete your booking.");
+navigation.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', function () {
+        menuButton.setAttribute('aria-expanded', 'false');
+        menuButton.setAttribute('aria-label', 'Open menu');
+        navigation.classList.remove('open');
     });
 });
 
-var form = document.querySelector(".booking-page form");
+// Filter the match cards by team.
+var teamFilter = document.getElementById('team-filter');
+var matchCards = document.querySelectorAll('.match-card');
+var emptyMessage = document.getElementById('empty-state');
 
-if (form) {
-    form.addEventListener("submit", function (event) {
-        event.preventDefault();
-        showToast("Your form details are valid.");
+teamFilter.addEventListener('change', function () {
+    var selectedTeam = teamFilter.value;
+    var matchesShown = 0;
+
+    matchCards.forEach(function (card) {
+        var teams = card.getAttribute('data-teams').split(' ');
+        var showCard = selectedTeam === 'all' || teams.includes(selectedTeam);
+
+        card.hidden = !showCard;
+
+        if (showCard) {
+            matchesShown++;
+        }
     });
+
+    emptyMessage.hidden = matchesShown > 0;
+});
+
+// Switch between grid and list views.
+var matchList = document.getElementById('match-list');
+var viewButtons = document.querySelectorAll('.view-button');
+
+viewButtons.forEach(function (button) {
+    button.addEventListener('click', function () {
+        var showList = button.getAttribute('data-view') === 'list';
+        matchList.classList.toggle('list-view', showList);
+
+        viewButtons.forEach(function (otherButton) {
+            otherButton.classList.toggle('active', otherButton === button);
+        });
+    });
+});
+
+// Update the booking summary when the selections change.
+var ticketPrices = [
+    [1500, 3500, 8000],
+    [1800, 4000, 9000],
+    [1200, 3000, 7000],
+    [2000, 4500, 10000]
+];
+
+var matchNames = [
+    'Match 1: CSK vs MI',
+    'Match 2: RCB vs KKR',
+    'Match 3: SRH vs RR',
+    'Match 4: MI vs RCB'
+];
+
+var standNames = ['General', 'Premium', 'VIP'];
+var matchSelect = document.getElementById('match');
+var standSelect = document.getElementById('stand');
+var ticketQuantity = document.getElementById('tickets');
+
+function updateSummary() {
+    var matchNumber = Number(matchSelect.value);
+    var standNumber = Number(standSelect.value);
+    var quantity = Number(ticketQuantity.value) || 1;
+    var price = ticketPrices[matchNumber][standNumber];
+
+    document.getElementById('summary-match').textContent = matchNames[matchNumber];
+    document.getElementById('summary-stand').textContent = standNames[standNumber];
+    document.getElementById('summary-price').textContent = price.toLocaleString('en-IN');
+    document.getElementById('summary-quantity').textContent = quantity;
+    document.getElementById('summary-total').textContent =
+        (price * quantity).toLocaleString('en-IN');
 }
 
-var matchSelect = document.getElementById("match");
-var standSelect = document.getElementById("stand");
-var ticketQuantity = document.getElementById("tickets");
-var summaryMatch = document.getElementById("summary-match");
+matchSelect.addEventListener('change', updateSummary);
+standSelect.addEventListener('change', updateSummary);
+ticketQuantity.addEventListener('input', updateSummary);
 
-if (matchSelect && standSelect && ticketQuantity && summaryMatch) {
-    var standNames = ["General", "Premium", "VIP"];
+// Choose the match in the booking form when a match card's Book button is clicked.
+document.querySelectorAll('.match-book').forEach(function (button) {
+    button.addEventListener('click', function () {
+        matchSelect.value = button.getAttribute('data-match');
+        updateSummary();
+    });
+});
 
-    var ticketPrices = [
-        [1500, 3500, 8000],
-        [1800, 4000, 9000],
-        [1200, 3000, 7000],
-        [2000, 4500, 10000]
-    ];
+// Check the form and show a message when it is submitted.
+document.getElementById('booking-form').addEventListener('submit', function (event) {
+    event.preventDefault();
 
-    function updateSummary() {
-        var matchNumber = Number(matchSelect.value);
-        var standNumber = Number(standSelect.value);
-        var quantity = Number(ticketQuantity.value);
-        var ticketPrice = ticketPrices[matchNumber][standNumber];
-        var totalPrice = ticketPrice * quantity;
-
-        summaryMatch.textContent =
-            matchSelect.options[matchSelect.selectedIndex].text;
-
-        document.getElementById("summary-stand").textContent =
-            standNames[standNumber];
-
-        document.getElementById("summary-price").textContent =
-            ticketPrice.toLocaleString("en-IN");
-
-        document.getElementById("summary-quantity").textContent = quantity;
-
-        document.getElementById("summary-total").textContent =
-            totalPrice.toLocaleString("en-IN");
-
-        showToast("Booking summary updated.");
+    if (!event.currentTarget.reportValidity()) {
+        return;
     }
 
-    matchSelect.addEventListener("change", updateSummary);
-    standSelect.addEventListener("change", updateSummary);
-    ticketQuantity.addEventListener("change", updateSummary);
-}
+    showToast('Your form details are valid.');
+});

@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: sans-serif;
     margin: 0;
@@ -22,20 +26,24 @@ header p {
 
 nav {
     display: flex;
+    gap: 20px;
 }
 
 nav a {
     color: white;
     text-decoration: none;
-    margin-left: 20px;
 }
 
 nav a:hover {
     color: yellow;
 }
 
+.menu-toggle {
+    display: none;
+}
+
 .hero {
-    background-color: rgb(28, 91, 153);
+    background-color: rgb(41, 148, 59);
     color: white;
     text-align: center;
     padding: 45px 20px;
@@ -63,16 +71,92 @@ h2 {
     color: rgb(9, 9, 131);
 }
 
-.info {
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.info-grid .card {
+    margin: 0;
+}
+
+.guidelines {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.schedule-controls {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
 }
 
-.info .card {
-    width: 45%;
+.filter-form {
+    margin: 0;
 }
 
-button, .button, .small-button {
+select,
+input {
+    padding: 8px;
+    margin: 5px;
+}
+
+.match-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.match-card {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 15px;
+    background: white;
+}
+
+.match-card h3 {
+    color: rgb(9, 9, 131);
+    margin-top: 0;
+}
+
+.match-card p {
+    line-height: 1.5;
+}
+
+.list-view {
+    grid-template-columns: 1fr;
+}
+
+.empty {
+    color: grey;
+}
+
+.booking-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.booking-form label {
+    display: inline-block;
+    width: 150px;
+}
+
+.booking-form input,
+.booking-form select {
+    max-width: 65%;
+}
+
+.summary {
+    align-self: start;
+    margin: 0;
+}
+
+button,
+.button,
+.small-button {
     background-color: rgb(55, 109, 218);
     color: white;
     padding: 10px 15px;
@@ -83,31 +167,14 @@ button, .button, .small-button {
     display: inline-block;
 }
 
-button:hover, .button:hover, .small-button:hover {
+button:hover,
+.button:hover,
+.small-button:hover {
     background-color: rgb(9, 9, 131);
 }
 
-.filter-form {
-    margin-bottom: 15px;
-}
-
-select, input {
-    padding: 8px;
-    margin: 5px;
-}
-
-.booking-layout {
-    display: flex;
-    justify-content: space-around;
-}
-
-.booking-form, .summary {
-    width: 45%;
-}
-
-.booking-form label {
-    display: inline-block;
-    width: 150px;
+.view-button.active {
+    background-color: rgb(9, 9, 131);
 }
 
 table {
@@ -115,7 +182,8 @@ table {
     border-collapse: collapse;
 }
 
-th, td {
+th,
+td {
     border: 1px solid black;
     padding: 10px;
     text-align: center;
@@ -128,58 +196,6 @@ th {
 
 td {
     background-color: #f7f7f7;
-}
-
-.empty {
-    color: grey;
-}
-
-.guidelines {
-    display: flex;
-    justify-content: space-around;
-}
-
-.guidelines article {
-    width: 30%;
-}
-
-footer {
-    text-align: center;
-    background-color: rgb(9, 9, 131);
-    color: white;
-    padding: 15px;
-}
-.info-grid {
-    display: flex;
-    justify-content: space-around;
-}
-
-.info-grid .card {
-    width: 45%;
-}
-
-.booking-grid {
-    display: flex;
-    justify-content: space-around;
-}
-
-.booking-form, .summary {
-    width: 45%;
-}
-
-.booking-form label {
-    display: inline-block;
-    width: 150px;
-}
-
-.guidelines .info-grid .card {
-    width: 30%;
-}
-.hero {
-    background-color: rgb(41, 148, 59);
-    color: white;
-    text-align: center;
-    padding: 45px 20px;
 }
 
 #about {
@@ -195,27 +211,127 @@ footer {
     border-top: 4px solid rgb(230, 174, 49);
 }
 
-.booking-page {
-    max-width: 600px;
-    margin: 30px auto;
+footer {
+    text-align: center;
+    background-color: rgb(9, 9, 131);
+    color: white;
+    padding: 15px;
 }
 
-.booking-page h1 {
-    color: rgb(9, 9, 131);
+.toast {
+    display: none;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background-color: rgb(9, 9, 131);
+    color: white;
+    padding: 12px 18px;
+    border-radius: 6px;
 }
 
-.booking-page input[type="text"],
-.booking-page input[type="email"],
-.booking-page input[type="tel"],
-.booking-page input[type="number"],
-.booking-page select {
-    width: 95%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid grey;
-    border-radius: 5px;
+.toast.show {
+    display: block;
 }
 
-.booking-page input[type="checkbox"] {
-    margin-right: 5px;
+@media (max-width: 800px) {
+    .booking-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .booking-form label {
+        width: 125px;
+    }
+
+    .booking-form input,
+    .booking-form select {
+        max-width: 58%;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 600px) {
+    header {
+        padding: 14px 18px;
+        position: relative;
+    }
+
+    header p {
+        font-size: 20px;
+    }
+
+    .menu-toggle {
+        display: block;
+        font-size: 23px;
+        padding: 5px 9px;
+    }
+
+    nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 2;
+        background: rgb(9, 9, 131);
+        padding: 12px 20px;
+    }
+
+    nav.open {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .hero {
+        padding: 35px 15px;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+    }
+
+    .card {
+        margin: 12px;
+        padding: 13px;
+    }
+
+    .info-grid,
+    .match-grid,
+    .booking-grid,
+    .guidelines {
+        grid-template-columns: 1fr;
+    }
+
+    .schedule-controls {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .booking-form label {
+        display: block;
+        width: auto;
+    }
+
+    .booking-form input,
+    .booking-form select {
+        width: 100%;
+        max-width: none;
+        margin: 5px 0;
+    }
+
+    table {
+        font-size: 13px;
+    }
+
+    .toast {
+        left: 15px;
+        right: 15px;
+        bottom: 15px;
+    }
 }

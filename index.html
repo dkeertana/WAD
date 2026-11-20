@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPL 2026 Ticket Booking</title>
+    <title>Book IPL 2026 Tickets</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
         <p>IPL 2026 Tickets</p>
-        <nav>
+        <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
+        <nav id="main-nav">
+            <a href="#home">Home</a>
             <a href="#matches">Matches</a>
-            <a href="booking.html">Book Ticket</a>
+            <a href="#booking">Book Ticket</a>
             <a href="#my-bookings">My Bookings</a>
             <a href="#guidelines">Guidelines</a>
         </nav>
@@ -54,83 +56,59 @@
 
         <section class="card" id="matches">
             <h2>Match Schedule</h2>
-            <form class="filter-form">
-                <label for="team-filter">Filter by team:</label>
-                <select id="team-filter" name="team-filter">
-                    <option value="all">All Teams</option>
-                    <option value="csk">Chennai Super Kings</option>
-                    <option value="mi">Mumbai Indians</option>
-                    <option value="rcb">Royal Challengers Bengaluru</option>
-                    <option value="kkr">Kolkata Knight Riders</option>
-                    <option value="srh">Sunrisers Hyderabad</option>
-                    <option value="rr">Rajasthan Royals</option>
-                </select>
-            </form>
+            <div class="schedule-controls">
+                <form class="filter-form">
+                    <label for="team-filter">Filter by team:</label>
+                    <select id="team-filter" name="team-filter">
+                        <option value="all">All Teams</option>
+                        <option value="csk">Chennai Super Kings</option>
+                        <option value="mi">Mumbai Indians</option>
+                        <option value="rcb">Royal Challengers Bengaluru</option>
+                        <option value="kkr">Kolkata Knight Riders</option>
+                        <option value="srh">Sunrisers Hyderabad</option>
+                        <option value="rr">Rajasthan Royals</option>
+                    </select>
+                </form>
+                <div class="view-controls">
+                    <button class="view-button active" type="button" data-view="grid">Grid View</button>
+                    <button class="view-button" type="button" data-view="list">List View</button>
+                </div>
+            </div>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Match No.</th>
-                        <th>Teams</th>
-                        <th>Date &amp; Time</th>
-                        <th>Venue</th>
-                        <th>General (₹)</th>
-                        <th>Premium (₹)</th>
-                        <th>VIP (₹)</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>CSK vs MI</td>
-                        <td>28 Mar 2026, 7:30 PM</td>
-                        <td>M. A. Chidambaram Stadium, Chennai</td>
-                        <td>1,500</td>
-                        <td>3,500</td>
-                        <td>8,000</td>
-                        <td><a class="small-button match-book" href="#booking">Book</a></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>RCB vs KKR</td>
-                        <td>30 Mar 2026, 7:30 PM</td>
-                        <td>M. Chinnaswamy Stadium, Bengaluru</td>
-                        <td>1,800</td>
-                        <td>4,000</td>
-                        <td>9,000</td>
-                        <td><a class="small-button match-book" href="#booking">Book</a></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>SRH vs RR</td>
-                        <td>01 Apr 2026, 3:30 PM</td>
-                        <td>Rajiv Gandhi Stadium, Hyderabad</td>
-                        <td>1,200</td>
-                        <td>3,000</td>
-                        <td>7,000</td>
-                        <td><a class="small-button match-book" href="#booking">Book</a></td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>MI vs RCB</td>
-                        <td>03 Apr 2026, 7:30 PM</td>
-                        <td>Wankhede Stadium, Mumbai</td>
-                        <td>2,000</td>
-                        <td>4,500</td>
-                        <td>10,000</td>
-                        <td><a class="small-button match-book" href="#booking">Book</a></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="match-grid" id="match-list">
+                <article class="match-card" data-teams="csk mi">
+                    <h3>Match 1: CSK vs MI</h3>
+                    <p><strong>28 Mar 2026, 7:30 PM</strong><br>M. A. Chidambaram Stadium, Chennai</p>
+                    <p>General: ₹1,500 &nbsp; Premium: ₹3,500 &nbsp; VIP: ₹8,000</p>
+                    <a class="small-button match-book" data-match="0" href="#booking">Book</a>
+                </article>
+                <article class="match-card" data-teams="rcb kkr">
+                    <h3>Match 2: RCB vs KKR</h3>
+                    <p><strong>30 Mar 2026, 7:30 PM</strong><br>M. Chinnaswamy Stadium, Bengaluru</p>
+                    <p>General: ₹1,800 &nbsp; Premium: ₹4,000 &nbsp; VIP: ₹9,000</p>
+                    <a class="small-button match-book" data-match="1" href="#booking">Book</a>
+                </article>
+                <article class="match-card" data-teams="srh rr">
+                    <h3>Match 3: SRH vs RR</h3>
+                    <p><strong>01 Apr 2026, 3:30 PM</strong><br>Rajiv Gandhi Stadium, Hyderabad</p>
+                    <p>General: ₹1,200 &nbsp; Premium: ₹3,000 &nbsp; VIP: ₹7,000</p>
+                    <a class="small-button match-book" data-match="2" href="#booking">Book</a>
+                </article>
+                <article class="match-card" data-teams="mi rcb">
+                    <h3>Match 4: MI vs RCB</h3>
+                    <p><strong>03 Apr 2026, 7:30 PM</strong><br>Wankhede Stadium, Mumbai</p>
+                    <p>General: ₹2,000 &nbsp; Premium: ₹4,500 &nbsp; VIP: ₹10,000</p>
+                    <a class="small-button match-book" data-match="3" href="#booking">Book</a>
+                </article>
+                <p class="empty" id="empty-state" hidden>No matches found for this team.</p>
+            </div>
         </section>
 
         <section class="card" id="booking">
             <h2>Book Your Tickets</h2>
             <div class="booking-grid">
-                <form class="booking-form">
-                    <p>
-                        <label for="match">Match:</label>
+                <form class="booking-form" id="booking-form">
+                    <p><label for="match">Match:</label>
                         <select id="match" name="match">
                             <option value="0">Match 1: CSK vs MI</option>
                             <option value="1">Match 2: RCB vs KKR</option>
@@ -138,36 +116,26 @@
                             <option value="3">Match 4: MI vs RCB</option>
                         </select>
                     </p>
-                    <p>
-                        <label for="stand">Stand Category:</label>
+                    <p><label for="stand">Stand Category:</label>
                         <select id="stand" name="stand">
                             <option value="0">General</option>
                             <option value="1">Premium</option>
                             <option value="2">VIP</option>
                         </select>
                     </p>
-                    <p>
-                        <label for="tickets">Number of Tickets:</label>
-                        <input type="number" id="tickets" name="tickets"
-                               min="1" max="10" value="1" required>
+                    <p><label for="tickets">Number of Tickets:</label>
+                        <input type="number" id="tickets" name="tickets" min="1" max="10" value="1" required>
                     </p>
-                    <p>
-                        <label for="name">Full Name:</label>
-                        <input type="text" id="name" name="name"
-                               placeholder="Enter your name" required>
+                    <p><label for="name">Full Name:</label>
+                        <input type="text" id="name" name="name" minlength="2" maxlength="50" required>
                     </p>
-                    <p>
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email"
-                               placeholder="you@example.com" required>
+                    <p><label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
                     </p>
-                    <p>
-                        <label for="phone">Phone Number:</label>
-                        <input type="tel" id="phone" name="phone"
-                               pattern="[0-9]{10}"
-                               placeholder="10-digit mobile number" required>
+                    <p><label for="phone">Phone Number:</label>
+                        <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="10 digit number" required>
                     </p>
-                    <button type="submit">Confirm Booking</button>
+                    <button type="submit">Submit Booking</button>
                 </form>
 
                 <aside class="summary card">
@@ -177,9 +145,7 @@
                     <p>Ticket Price: ₹<span id="summary-price">1,500</span></p>
                     <p>Quantity: <span id="summary-quantity">1</span></p>
                     <hr>
-                    <p>
-                        <strong>Total Amount: ₹<span id="summary-total">1,500</span></strong>
-                    </p>
+                    <p><strong>Total Amount: ₹<span id="summary-total">1,500</span></strong></p>
                 </aside>
             </div>
         </section>
@@ -198,16 +164,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td colspan="6">Your confirmed bookings will appear here.</td>
-                    </tr>
+                    <tr><td colspan="6">Your confirmed bookings will appear here.</td></tr>
                 </tbody>
             </table>
         </section>
 
         <section class="card" id="guidelines">
             <h2>Guidelines</h2>
-            <div class="info-grid">
+            <div class="guidelines info-grid">
                 <article class="card">
                     <h3>Ticket Verification</h3>
                     <p>Show the QR code from your e-ticket at the stadium gate. Each code can be scanned only once, so please don't share it.</p>
